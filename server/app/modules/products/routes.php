@@ -14,7 +14,7 @@ return function (App $app) {
 
         try {
             $sql = "
-                SELECT * from products limit 200;
+                SELECT * from products limit 10;
 ";
             $stmt = $container->get('connection')->query($sql);
             $items = $stmt->fetchAll(PDO::FETCH_OBJ);

@@ -15,7 +15,7 @@ return function (App $app) {
                 SELECT transactions.id , transactions.amount amount, users.name user ,products.name product
                 FROM transactions
                 INNER JOIN users ON transactions.user_id = users.id
-                INNER JOIN products ON transactions.product_id = products.id limit 200 ;
+                INNER JOIN products ON transactions.product_id = products.id limit 10 ;
 ";
             $stmt = $container->get('connection')->query($sql);
             $transactions = $stmt->fetchAll(PDO::FETCH_OBJ);

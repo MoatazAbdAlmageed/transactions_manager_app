@@ -3,7 +3,7 @@
 <template>
   <div class="container">
     <h1> {{ items.length }} users </h1>
-    <table class="table">
+    <table class="table  table-dark">
       <thead>
       <tr>
         <th>ID</th>

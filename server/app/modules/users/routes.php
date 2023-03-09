@@ -15,7 +15,7 @@ return function (App $app) {
             $sql = "
                 SELECT * 
                 FROM users
-           limit 200;
+           limit 10;
 ";
             $stmt = $container->get('connection')->query($sql);
             $users = $stmt->fetchAll(PDO::FETCH_OBJ);
