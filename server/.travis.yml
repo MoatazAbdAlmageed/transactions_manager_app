@@ -15,7 +15,7 @@ matrix:
 
 before_script:
 - composer require php-coveralls/php-coveralls:^2.1.0
-- composer install -n
+- composer system -n
 
 script:
 - if [[ "$ANALYSIS" == 'true' ]]; then vendor/bin/phpunit --coverage-clover clover.xml ; fi

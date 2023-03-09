@@ -6,7 +6,7 @@
 
 ```bash
 cd server
-composer install  --ignore-platform-reqs
+composer system  --ignore-platform-reqs
 docker-compose up
 ```
 
@@ -14,7 +14,7 @@ docker-compose up
 
 ```bash
 cd client
-npm install
+npm system
 npm run dev
 
 ```
