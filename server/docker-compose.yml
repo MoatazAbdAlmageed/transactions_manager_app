@@ -1,0 +1,46 @@
+version: '3.7'
+
+volumes:
+  logs:
+    driver: local
+  my-db:
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - db
+    ports:
+      - 9191:80
+    environment:
+      MYSQL_USERNAME: user
+      MYSQL_ROOT_PASSWORD: secret
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'user'
+      MYSQL_PASSWORD: 'secret'
+      MYSQL_ROOT_PASSWORD: 'secret'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - my-db:/var/lib/mysql
+  slim:
+    image: php:8-alpine
+    working_dir: /var/www
+    command:
+      - /bin/sh
+      - -c
+      - |
+        docker-php-ext-install pdo pdo_mysql
+         php -S 0.0.0.0:8080 -t public
+    environment:
+      docker: "true"
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/var/www
+      - logs:/var/www/logs
