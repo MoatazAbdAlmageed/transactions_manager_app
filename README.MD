@@ -1,4 +1,4 @@
-# Slim Framework 4 Skeleton Application
+# Transactions Manager
 
 ## Install the Application
 

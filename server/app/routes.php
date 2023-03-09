@@ -9,6 +9,21 @@ use Slim\App;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface as RequestInterface;
 
+
+function createTables(?ContainerInterface $container)
+{
+    inform('creating tables ....');
+    $container->get('connection')->exec(' 
+drop table if exists users;
+drop table if exists transactions;
+drop table if exists products;
+create table IF NOT EXISTS users (id int NOT NULL AUTO_INCREMENT, name varchar(255), email varchar(255), phone varchar(255), created_at datetime ,updated_at datetime , PRIMARY KEY (id));
+create table IF NOT EXISTS products ( id int NOT NULL AUTO_INCREMENT, name varchar(255)  ,  created_at date ,updated_at datetime,PRIMARY KEY (id));
+create table IF NOT EXISTS transactions ( id int NOT NULL AUTO_INCREMENT,user_id int ,product_id int, amount varchar(255)  ,  created_at datetime ,updated_at datetime ,PRIMARY KEY (id));
+');
+}
+
+
 /**
  * @param ContainerInterface|null $container
  * @param ResponseInterface $response
@@ -72,7 +87,6 @@ function addTransactions(ContainerInterface $container): void
     $stmt = $container->get('connection')->prepare($sql);
     $settings = $container->get('settings');
     for ($x = 1; $x <= 100000; $x++) {
-        $user_id = $x;
         $product_id = $x;
         $amount = 200;
         $stmt->execute([
@@ -83,25 +97,6 @@ function addTransactions(ContainerInterface $container): void
     }
 }
 
-/**
- * @param ContainerInterface|null $container
- * @return void
- * @throws ContainerExceptionInterface
- * @throws NotFoundExceptionInterface
- */
-function createTables(?ContainerInterface $container): void
-{
-    inform('creating tables ....');
-    $container->get('connection')->exec(' 
-drop table if exists users;
-drop table if exists transactions;
-drop table if exists products;
-drop table if exists location;
-create table IF NOT EXISTS users (id int NOT NULL AUTO_INCREMENT, name varchar(255), email varchar(255), phone varchar(255), created_at datetime ,updated_at datetime , PRIMARY KEY (id));
-create table IF NOT EXISTS products ( id int NOT NULL AUTO_INCREMENT, name varchar(255)  ,  created_at date ,updated_at datetime,PRIMARY KEY (id));
-create table IF NOT EXISTS transactions ( id int NOT NULL AUTO_INCREMENT,user_id int ,product_id int, amount varchar(255)  ,  created_at datetime ,updated_at datetime ,PRIMARY KEY (id));
-');
-}
 
 return function (App $app) {
     $container = $app->getContainer();
