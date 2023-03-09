@@ -23,18 +23,14 @@ AppFactory::setContainer($container);
 
 // Create App
 $app = AppFactory::create();
-$app->addErrorMiddleware(true, true, true);
-$app->options('/{routes:.+}', function ($request, $response, $args) {
-    return $response;
-});
+$app->addBodyParsingMiddleware();
+//$app->addErrorMiddleware(false, false, false);
 
-$app->add(function ($request, $handler) {
-    $response = $handler->handle($request);
-    return $response
-        ->withHeader('Access-Control-Allow-Origin', '*')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-});
+header('Access-Control-Allow-Origin:*');
+header('Access-Control-Allow-Headers:X-Request-With');
+header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+
 $views = require __DIR__ . '/../app/views.php';
 $views($app);
 

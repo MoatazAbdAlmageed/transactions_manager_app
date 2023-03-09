@@ -2,20 +2,31 @@
 
 <template>
   <div class="container">
-    <h1> {{ items.length }} users </h1>
+    <h1> {{ items.length }} Users </h1>
+    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <div><a class="btn btn-primary" href="/add-user">
+      Add
+    </a></div>
+
     <table class="table  table-dark">
       <thead>
       <tr>
         <th>ID</th>
         <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Transitions</th>
 
 
       </tr>
       </thead>
       <tbody>
-      <tr v-for="({ id,name }, index) in items" :key="index">
+      <tr v-for="({ id,name ,email,phone, transactions }, index) in items" :key="index">
         <td>{{ id }}</td>
         <td>{{ name }}</td>
+        <td>{{ email }}</td>
+        <td>{{ phone }}</td>
+        <td>{{ transactions }}</td>
 
       </tr>
       </tbody>
@@ -32,6 +43,7 @@ export default {
   },
   data() {
     return {
+      showModal: false,
       items: [],
     };
   },

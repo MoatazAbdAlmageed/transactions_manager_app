@@ -17,7 +17,7 @@ use Psr\Http\Message\ServerRequestInterface as RequestInterface;
  * @throws ContainerExceptionInterface
  * @throws NotFoundExceptionInterface
  */
-function insertUsers(ContainerInterface $container)
+function addusers(ContainerInterface $container)
 {
     inform('adding users ....');
     $sql = "INSERT INTO users (`name`, `email`, `phone`) VALUES (:name, :email, :phone)";
@@ -40,7 +40,7 @@ drop table if exists users;
 drop table if exists transactions;
 drop table if exists products;
 create table IF NOT EXISTS users (id int NOT NULL AUTO_INCREMENT, name varchar(255), email varchar(255), phone varchar(255), created_at datetime ,updated_at datetime , PRIMARY KEY (id));
-create table IF NOT EXISTS products ( id int NOT NULL AUTO_INCREMENT, name varchar(255)  ,  created_at date ,updated_at datetime,PRIMARY KEY (id));
+create table IF NOT EXISTS products ( id int NOT NULL AUTO_INCREMENT, name varchar(255) , created_at date ,updated_at datetime,PRIMARY KEY (id));
 create table IF NOT EXISTS transactions ( id int NOT NULL AUTO_INCREMENT,user_id int ,product_id int, amount varchar(255)  ,  created_at datetime ,updated_at datetime ,PRIMARY KEY (id));
 ');
 }
@@ -99,11 +99,11 @@ function addTransactions(ContainerInterface $container): void
 
 return function (App $app) {
     $container = $app->getContainer();
-    $app->get('/api/v1/system', function (RequestInterface $request, ResponseInterface $response, $args) use ($container) {
+    $app->get('/api/v1/install', function (RequestInterface $request, ResponseInterface $response, $args) use ($container) {
 
         try {
             createTables($container);
-            insertUsers($container);
+            addusers($container);
             addProducts($container);
             addTransactions($container);
 
