@@ -1,13 +1,15 @@
-<script setup></script>
+<script setup>
+import {RouterLink} from 'vue-router'
+</script>
 
 <template>
   <div class="container">
     <h1> {{ items.length }} Users </h1>
     <link rel="stylesheet" type="text/css" href="/style.css"/>
-    <div><a class="btn btn-primary" href="/add-user">
-      Add
-    </a></div>
-
+    <div>
+      <RouterLink class="btn btn-primary" to="/add-user">Add</RouterLink>
+    </div>
+    <br/>
     <table class="table  table-dark">
       <thead>
       <tr>
@@ -16,6 +18,7 @@
         <th>Email</th>
         <th>Phone</th>
         <th>Transitions</th>
+        <th>Actions</th>
 
 
       </tr>
@@ -27,6 +30,15 @@
         <td>{{ email }}</td>
         <td>{{ phone }}</td>
         <td>{{ transactions }}</td>
+        <td>
+          <div>
+            <a class="btn btn-sm btn-info" href="/edit-user">
+              Edit
+            </a> <a class="btn btn-sm btn-danger" href="/delete-user">
+            Delete
+          </a>
+          </div>
+        </td>
 
       </tr>
       </tbody>
