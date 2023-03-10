@@ -32,11 +32,10 @@ import {RouterLink} from 'vue-router'
         <td>{{ transactions }}</td>
         <td>
           <div>
-            <a class="btn btn-sm btn-info" href="/edit-user">
-              Edit
-            </a> <a class="btn btn-sm btn-danger" href="/delete-user">
-            Delete
-          </a>
+            <RouterLink class="btn btn-sm btn-info" to="/edit-user">Edit</RouterLink>
+            <button class="btn btn-sm btn-danger">
+              Delete
+            </button>
           </div>
         </td>
 
