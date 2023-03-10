@@ -1,8 +1,14 @@
-<script setup></script>
+<script setup>
+import {RouterLink} from 'vue-router'
+</script>
 
 <template>
   <div class="container">
     <h1> {{ items.length }} Transactions </h1>
+    <div>
+      <RouterLink class="btn btn-primary" to="/add-transactions">Add</RouterLink>
+    </div>
+    <br/>
     <table class="table table-dark">
       <thead>
       <tr>

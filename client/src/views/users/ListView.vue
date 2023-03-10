@@ -17,7 +17,7 @@ import {RouterLink} from 'vue-router'
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-        <th>Transitions</th>
+        <th>Transactions</th>
         <th>Actions</th>
 
 
