@@ -12,7 +12,13 @@ return function (App $app) {
     $app->get('/api/v1/users', function (RequestInterface $request, ResponseInterface $response, $args) use ($container) {
 
         try {
-            $sql = "SELECT  users.id  , users.name ,users.email ,users.phone , count(transactions.amount) transactions FROM `users` left JOIN transactions on transactions.user_id = users.id GROUP BY users.id ;
+            $sql = " SELECT users.id, users.name, users.email, users.phone,
+(SELECT COUNT(*) FROM transactions WHERE user_id = users.id) AS transactions
+FROM users
+ORDER BY transactions DESC
+LIMIT 10
+
+ ;
 ";
             $stmt = $container->get('connection')->query($sql);
             $users = $stmt->fetchAll(PDO::FETCH_OBJ);
