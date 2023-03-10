@@ -46,6 +46,12 @@ LIMIT 10
             $name = $data["name"];
             $email = $data["email"];
             $phone = $data["phone"];
+            if (!$name || !$email || !$phone) {
+                $response->getBody()->write(json_encode('validation error'));
+                return $response
+                    ->withHeader('content-type', 'application/json')
+                    ->withStatus(500);
+            }
             $stmt->execute([':name' => $name, ':email' => $email, ':phone' => $phone]);
             $response->getBody()->write(json_encode('user created successfully'));
             return $response

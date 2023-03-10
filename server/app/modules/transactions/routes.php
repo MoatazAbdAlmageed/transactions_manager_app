@@ -44,6 +44,12 @@ return function (App $app) {
             $user_id = $data["user_id"];
             $product_id = $data["product_id"];
             $amount = $data["amount"];
+            if (!$user_id || !$product_id || !$amount) {
+                $response->getBody()->write(json_encode('validation error'));
+                return $response
+                    ->withHeader('content-type', 'application/json')
+                    ->withStatus(500);
+            }
             $stmt->execute([':user_id' => $user_id, ':product_id' => $product_id, ':amount' => $amount]);
             $response->getBody()->write(json_encode('transaction created successfully'));
             return $response

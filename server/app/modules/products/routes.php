@@ -39,6 +39,12 @@ return function (App $app) {
             $stmt = $container->get('connection')->prepare($sql);
             $data = $request->getParsedBody();
             $name = $data["name"];
+            if (!$name) {
+                $response->getBody()->write(json_encode('validation error'));
+                return $response
+                    ->withHeader('content-type', 'application/json')
+                    ->withStatus(500);
+            }
             $stmt->execute([':name' => $name]);
             $response->getBody()->write(json_encode('product created successfully'));
             return $response
